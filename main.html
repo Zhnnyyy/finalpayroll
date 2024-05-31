@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | PAYROLL</title>
+    <link rel="stylesheet" type="text/css" href="src/style/style.css" />
+    <link rel="stylesheet" href="src/style/modal-style.css" />
+    <link rel="icon" href="/src/img/favicon.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css"
+    />
+
+    <link rel="stylesheet" href="src/style/sharp-thin.css" />
+
+    <link rel="stylesheet" href="src/style/sharp-solid.css" />
+
+    <link rel="stylesheet" href="src/style/sharp-regular.css" />
+    <link rel="stylesheet" href="src/style/sharp-light.css" />
+    <link rel="stylesheet" href="src/style/sweetalert2.min.css" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        user-select: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="sidebar">
+      <div class="header">
+        <div class="toggle toggle-close">
+          <i class="fas fa-angle-right"></i>
+        </div>
+        <img src="src/img/logo.png" alt="" />
+        <span>CLD DIGITALS</span>
+      </div>
+
+      <div class="menus">
+        <div class="nav-link">
+          <ul>
+            <li class="nav-btn active" data-data="dashboard">
+              <i class="far fa-home" data-data="dashboard"></i>
+              <span data-data="dashboard">Dashboard</span>
+            </li>
+            <li class="nav-btn" data-data="manage">
+              <i class="far fa-users" data-data="manage"></i>
+              <span data-data="manage">Manage Employee</span>
+            </li>
+            <li class="nav-btn" data-data="timesheet">
+              <i class="far fa-clipboard-list-check" data-data="timesheet"></i>
+              <span data-data="timesheet">Timesheet</span>
+            </li>
+            <li class="nav-btn" data-data="attendance">
+              <i class="far fa-clipboard-list-check" data-data="attendance"></i>
+              <span data-data="attendance">Attendance</span>
+            </li>
+            <li class="nav-btn" data-data="approval">
+              <i class="far fa-calendar-check" data-data="approval"></i>
+              <span data-data="approval">Approval</span>
+            </li>
+            <li class="nav-btn" data-data="payroll">
+              <i class="far fa-sack-dollar" data-data="payroll"></i>
+              <span data-data="payroll">Payroll</span>
+            </li>
+          </ul>
+        </div>
+        <div class="bottom-controls">
+          <ul>
+            <li id="btn-settings">
+              <i class="far fa-cog"></i>
+              <span>Settings</span>
+            </li>
+            <li id="signout">
+              <i class="far fa-sign-out"></i>
+              <span>Sign out</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="dashboard content">
+        <div class="inner-container">
+          <div class="left">
+            <div class="header">
+              <div class="card">
+                <div class="card-logo"><i class="fas fa-users"></i></div>
+                <div class="card-content">
+                  <h5>Total Employee</h5>
+                  <span id="employee">0</span>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-logo">
+                  <i class="fas fa-clipboard-user"></i>
+                </div>
+                <div class="card-content">
+                  <h5>Attendance</h5>
+                  <span id="attendance">0</span>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-logo">
+                  <i class="fa-solid fa-bell"></i>
+                </div>
+                <div class="card-content">
+                  <h5>Request</h5>
+                  <span id="request">0</span>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-logo">
+                  <i class="fas fa-calendar-exclamation"></i>
+                </div>
+                <div class="card-content">
+                  <h5>Leave</h5>
+                  <span id="leave">0</span>
+                </div>
+              </div>
+            </div>
+            <div class="content" id="dashboardContetn">
+              <div class="calendar-container">
+                <div id="calendar"></div>
+              </div>
+            </div>
+          </div>
+          <div class="right">
+            <center><h2>Holidays This year</h2></center>
+            <div class="right-container">
+              <div class="holiday-container">
+                <label><strong>Date:</strong> 2024-04-01</label>
+                <label><strong>Name:</strong> Labor Day</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="manage content">
+        <div class="controls">
+          <button class="addEmployee" id="add_employee">
+            <i class="fa-solid fa-plus"></i> Add Employee
+          </button>
+          <div class="searchBox">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input
+              type="search"
+              name="search"
+              id="search"
+              placeholder="Search"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Employee ID</th>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>Middle Name</th>
+                <th>Suffix</th>
+                <th>Type</th>
+                <th>Position</th>
+                <th>Rate</th>
+                <th>Schedule</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="row-manageEmployee"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="timesheet content">
+        <div class="header">
+          <div class="sample">
+            <div class="inputs">
+              <label for="startDate">Starting Date:</label>
+              <input type="date" name="startDate" id="timesheetstartDate" />
+            </div>
+            <div class="inputs">
+              <label for="endDate">End Date:</label>
+              <input type="date" name="endDate" id="timesheetendDate" />
+            </div>
+          </div>
+          <div class="searchBox">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input
+              type="text"
+              name="search"
+              id="timesheetSearch"
+              placeholder="Search"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+        <div class="table-container" id="timesheet-table"></div>
+      </div>
+      <div class="attendance content">
+        <div class="header">
+          <div class="inputs">
+            <label for="startDate">Starting Date:</label>
+            <input type="date" name="startDate" id="startDate" />
+          </div>
+          <div class="inputs">
+            <label for="endDate">End Date:</label>
+            <input type="date" name="endDate" id="endDate" />
+          </div>
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Employee ID</th>
+                <th>Name</th>
+                <th>Time-in</th>
+                <th>Time-out</th>
+                <th>WorkHours</th>
+                <th>Status</th>
+                <th>Date</th>
+                <td>Control</td>
+              </tr>
+            </thead>
+            <tbody id="timesheetTable"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="approval content">
+        <div class="approval-header">
+          <ul>
+            <li class="tab-btn tab activetab" data-tab="leave">
+              Leave Request
+            </li>
+            <li class="tab-btn tab" data-tab="Logs" id="request-history">
+              <i class="fa-solid fa-clock-rotate-left"></i>
+            </li>
+          </ul>
+        </div>
+        <div class="approval-container">
+          <div class="leave-request-box tab-content">
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Employee ID</th>
+                    <th>Name</th>
+                    <th>StartDate</th>
+                    <th>EndDate</th>
+                    <th>Reason</th>
+                    <th>Remarks</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="leaverequesttbl"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="payroll content">
+        <div class="payroll-header">
+          <div>
+            <button
+              href=""
+              class="payrollCalc"
+              target="_blank"
+              id="makepayroll"
+            >
+              <i class="fa-solid fa-calculator-simple"></i>
+              <b>Make Payroll</b>
+            </button>
+          </div>
+        </div>
+        <div class="payroll-details">
+          <details>
+            <summary></summary>
+            <div class="table-container">
+              <table id="payroll-tables">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Rate</th>
+                    <th>Working Days</th>
+                    <th>Undertime</th>
+                    <th>Leave</th>
+                    <th>Basic Pay</th>
+                    <th>RegularHoliday</th>
+                    <th>RegularPay</th>
+                    <th>SpecialHoliday</th>
+                    <th>SpecialPay</th>
+                    <th>Overtime</th>
+                    <th>Overtime Hrs</th>
+                    <th>Overtime Pay</th>
+                    <th>Allowance</th>
+                    <th>Salary Adj</th>
+                    <th>Total Earnings</th>
+                    <th>Gross Pay</th>
+                    <th>PAG-IBIG</th>
+                    <th>PHILHEALTH</th>
+                    <th>SSS</th>
+                    <th>TAX</th>
+                    <th>Deduction</th>
+                    <th>Total Deduct</th>
+                    <th>NetPay</th>
+                  </tr>
+                </thead>
+                <tbody class="payroll-table"></tbody>
+              </table>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <div class="edit_employee_modal">
+      <div class="modal">
+        <div class="modal-content">
+          <div class="modal-title">Add Employee</div>
+          <div class="content">
+            <form id="form-editemployee">
+              <div class="input-container input">
+                <div class="input">
+                  <label for="Employeeid">Employee ID</label>
+                  <input
+                    type="text"
+                    name="Employeeid"
+                    id="Employeeid"
+                    readonly
+                  />
+                </div>
+                <div class="input">
+                  <label for="firstname">First Name</label>
+                  <span class="isrequired">*</span>
+                  <input type="text" name="firstname" id="firstname" />
+                </div>
+              </div>
+              <div class="input-container input">
+                <div class="input">
+                  <label for="middlename">Middle Name</label>
+                  <input
+                    type="text"
+                    class="empty"
+                    name="middlename"
+                    id="middlename"
+                  />
+                </div>
+                <div class="input">
+                  <label for="lastname">Last Name</label>
+                  <span class="isrequired">*</span>
+                  <input type="text" name="lastname" id="lastname" />
+                </div>
+                <div class="input">
+                  <label for="suffix">Suffix</label>
+                  <input type="text" class="empty" name="suffix" id="suffix" />
+                </div>
+              </div>
+              <div class="input-container input">
+                <div class="input">
+                  <label for="manage_employeetype">Employee Type</label>
+                  <span class="isrequired">*</span>
+                  <select
+                    name="manage_employeetype"
+                    id="manage_employeetype"
+                  ></select>
+                </div>
+                <div class="input">
+                  <label for="manage_employeeposition">Employee Position</label>
+                  <span class="isrequired">*</span>
+                  <select
+                    name="manage_employeeposition"
+                    id="manage_employeeposition"
+                  ></select>
+                </div>
+              </div>
+              <div class="input-container input">
+                <div class="input">
+                  <label for="employeeRate">Employee Rate</label>
+                  <span class="isrequired">*</span>
+                  <select name="employeeRate" id="employeeRate">
+                    <!-- <option value="1">Semi-Monthly</option> -->
+                  </select>
+                </div>
+                <div class="input">
+                  <label for="employeeSchedule">Employee Schedule</label>
+                  <span class="isrequired">*</span>
+                  <select name="employeeSchedule" id="employeeSchedule">
+                    <!-- <option value="1">Fixed</option>
+                    <option value="2">Flexible</option> -->
+                  </select>
+                </div>
+                <div class="input">
+                  <label for="employeeStatus">Status</label>
+                  <span class="isrequired">*</span>
+                  <select name="employeeStatus" id="employeeStatus">
+                    <option value="" disabled selected>Employee Status</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                  </select>
+                </div>
+              </div>
+              <div class="input-container controls">
+                <div class="input">
+                  <button type="button" id="editCloseModal">Cancel</button>
+                </div>
+                <div class="input">
+                  <button type="submit" id="addEmployeebtn">Update</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="manage_employee_modal">
+      <div class="modal">
+        <div class="modal-content">
+          <div class="modal-title">Add Employee</div>
+          <div class="content">
+            <form id="form-addemployee">
+              <div class="input-container input">
+                <div class="input">
+                  <label for="Employeeid">Employee ID</label>
+                  <span class="isrequired">*</span>
+                  <input
+                    type="text"
+                    name="Employeeid"
+                    id="Employeeid"
+                    autocomplete="off"
+                  />
+                </div>
+                <div class="input">
+                  <label for="firstname">First Name</label>
+                  <span class="isrequired">*</span>
+                  <input
+                    type="text"
+                    name="firstname"
+                    id="firstname"
+                    autocomplete="off"
+                  />
+                </div>
+              </div>
+              <div class="input-container input">
+                <div class="input">
+                  <label for="middlename">Middle Name</label>
+                  <input
+                    type="text"
+                    class="empty"
+                    name="middlename"
+                    id="middlename"
+                    autocomplete="off"
+                  />
+                </div>
+                <div class="input">
+                  <label for="lastname">Last Name</label>
+                  <span class="isrequired">*</span>
+                  <input
+                    type="text"
+                    name="lastname"
+                    id="lastname"
+                    autocomplete="off"
+                  />
+                </div>
+                <div class="input">
+                  <label for="suffix">Suffix</label>
+                  <input
+                    type="text"
+                    class="empty"
+                    name="suffix"
+                    id="suffix"
+                    autocomplete="off"
+                  />
+                </div>
+              </div>
+              <div class="input-container input">
+                <div class="input">
+                  <label for="manage_employeetype">Employee Type</label>
+                  <span class="isrequired">*</span>
+                  <select
+                    name="manage_employeetype"
+                    id="manage_employeetype"
+                  ></select>
+                </div>
+                <div class="input">
+                  <label for="manage_employeeposition">Employee Position</label>
+                  <span class="isrequired">*</span>
+                  <select
+                    name="manage_employeeposition"
+                    id="manage_employeeposition"
+                  ></select>
+                </div>
+              </div>
+              <div class="input-container input">
+                <div class="input">
+                  <label for="employeeRate">Employee Rate</label>
+                  <span class="isrequired">*</span>
+                  <select name="employeeRate" id="employeeRate">
+                    <!-- <option value="1">Semi-Monthly</option> -->
+                  </select>
+                </div>
+                <div class="input">
+                  <label for="employeeSchedule">Employee Schedule</label>
+                  <span class="isrequired">*</span>
+                  <select name="employeeSchedule" id="employeeSchedule">
+                    <!-- <option value="1">Fixed</option>
+                    <option value="2">Flexible</option> -->
+                  </select>
+                </div>
+                <div class="input">
+                  <label for="employeeStatus">Status</label>
+                  <span class="isrequired">*</span>
+                  <select name="employeeStatus" id="employeeStatus">
+                    <option value="" disabled selected>Employee Status</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                  </select>
+                </div>
+              </div>
+              <div class="input-container controls">
+                <div class="input">
+                  <button type="button" id="manageCloseModal">Cancel</button>
+                </div>
+                <div class="input">
+                  <button type="submit" id="addEmployeebtn">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="settings_modal">
+      <div class="modal">
+        <div class="title">
+          <h5>Configuration</h5>
+          <span id="closeSettings">&times;</span>
+        </div>
+        <div class="content">
+          <div class="control-panel">
+            <ul>
+              <li class="settings-btn" data-id="type">Type</li>
+              <li class="settings-btn" data-id="position">Position</li>
+              <li class="settings-btn" data-id="rate">Rate</li>
+              <li class="settings-btn" data-id="schedule">Schedule</li>
+              <li class="settings-btn" data-id="contribution">Contributions</li>
+              <li class="settings-btn" data-id="leavetypes">Leave Types</li>
+            </ul>
+          </div>
+          <div class="settings-container">
+            <div class="type settings-content">
+              <h4>Employee Type</h4>
+              <div class="control-box">
+                <input
+                  type="text"
+                  name="typename"
+                  id="typename"
+                  placeholder="Name"
+                  autocomplete="off"
+                />
+                <!-- <input
+                  type="text"
+                  name="typevalue"
+                  id="typevalue"
+                  placeholder="Value"
+                  autocomplete="off"
+                /> -->
+                <button id="addTypes"><i class="fa-solid fa-plus"></i></button>
+              </div>
+              <div class="settings-table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Name</th>
+                      <!-- <th>Value</th> -->
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody class="types-table">
+                    <tr>
+                      <td>1</td>
+                      <td>
+                        <div class="remove-items-btn">
+                          <i class="fa-solid fa-xmark"></i>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="position settings-content">
+              <h4>Employee Position</h4>
+              <div class="control-box">
+                <input
+                  type="text"
+                  name="positionname"
+                  id="positionname"
+                  placeholder="Name"
+                  autocomplete="off"
+                />
+                <!-- <input
+                  type="text"
+                  name="positionvalue"
+                  id="positionvalue"
+                  placeholder="Value"
+                  autocomplete="off"
+                /> -->
+                <button id="addPosition">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+              <div class="settings-table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Name</th>
+                      <!-- <th>Value</th> -->
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody class="positions-table">
+                    <tr>
+                      <td>1</td>
+                      <td>3</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="rate settings-content">
+              <h4>Employee Rate</h4>
+              <div class="control-box">
+                <input
+                  type="text"
+                  name="ratename"
+                  id="ratename"
+                  placeholder="Name"
+                  autocomplete="off"
+                />
+                <input
+                  type="text"
+                  name="ratevalue"
+                  id="ratevalue"
+                  placeholder="Value"
+                  autocomplete="off"
+                />
+                <button id="addRate"><i class="fa-solid fa-plus"></i></button>
+              </div>
+              <div class="settings-table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Name</th>
+                      <th>Value</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody class="rate-table">
+                    <tr>
+                      <td>1</td>
+                      <td>2</td>
+                      <td>3</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="schedule settings-content">
+              <h4>Employee Schedule</h4>
+              <div class="control-box">
+                <input
+                  type="text"
+                  name="schedulename"
+                  id="schedulename"
+                  placeholder="Name"
+                  autocomplete="off"
+                />
+                <!-- <input
+                  type="text"
+                  name="schedulevalue"
+                  id="schedulevalue"
+                  placeholder="Value"
+                  autocomplete="off"
+                /> -->
+                <button id="addSchedule">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+              <div class="settings-table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Name</th>
+                      <!-- <th>Value</th> -->
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody class="schedule-table">
+                    <tr>
+                      <td>1</td>
+                      <td>3</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="contribution settings-content">
+              <div class="inputs">
+                <label for="sss">SSS</label>
+                <input
+                  type="text"
+                  name=""
+                  id="sss"
+                  placeholder="Don't include %"
+                />
+              </div>
+              <div class="inputs">
+                <label for="philhealth">PhilHealth</label>
+                <input
+                  type="text"
+                  name=""
+                  id="philhealth"
+                  placeholder="Don't include %"
+                />
+              </div>
+              <div class="inputs">
+                <label for="pagibig">Pag-IBIG</label>
+                <input
+                  type="text"
+                  name=""
+                  id="pagibig"
+                  placeholder="Don't include %"
+                />
+              </div>
+              <div class="inputs">
+                <button id="updateContributionBtn">Save</button>
+              </div>
+            </div>
+            <div class="leavetypes settings-content">
+              <h4>Leave Types</h4>
+              <div class="control-box">
+                <input
+                  type="text"
+                  name="leavename"
+                  id="leavename"
+                  placeholder="Name"
+                  autocomplete="off"
+                />
+                <input
+                  type="text"
+                  name="leaveValue"
+                  id="leaveValue"
+                  placeholder="Credits"
+                  autocomplete="off"
+                />
+                <button id="addLeavetypes">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+              <div class="settings-table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Name</th>
+                      <th>Credits</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody class="leavetypes-table">
+                    <tr>
+                      <td>1</td>
+                      <td>2</td>
+                      <td>3</td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="request-history-modal">
+      <div class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>Request History</h2>
+            <i class="fa-solid fa-xmark" id="closeModal"></i>
+          </div>
+          <div class="content">
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody class="request-history-tbl">
+                  <tr>
+                    <td>Name</td>
+                    <td>From</td>
+                    <td>To</td>
+                    <td>Status</td>
+                    <td>Date</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="attendance-modal">
+      <div class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>Edit Attendance</h2>
+          </div>
+          <div class="content">
+            <form id="editAttendanceForm">
+              <div class="inputs">
+                <label for="timein">Time in</label>
+                <input type="time" name="timein" id="timein" />
+              </div>
+              <div class="inputs">
+                <label for="timeout">Time out</label>
+                <input type="time" name="timeout" id="timeout" />
+              </div>
+              <div style="display: flex; justify-content: space-between">
+                <button type="button" id="attendanceClosemodal">Cancel</button>
+                <button type="button" id="saveAttendance">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="src/js/sweetalert2.min.js"></script>
+    <script src="src/js/index.js" type="module"></script>
+    <script src="src/js/model/tableToExcel.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.6/underscore-min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+  </body>
+</html>

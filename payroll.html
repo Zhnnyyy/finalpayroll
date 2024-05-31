@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payroll</title>
+    <link rel="stylesheet" href="src/style/payroll.css" />
+    <link rel="stylesheet" href="src/style/modal-payroll.css" />
+    <link rel="icon" href="/src/img/favicon.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css"
+    />
+
+    <link rel="stylesheet" href="src/style/sharp-thin.css" />
+
+    <link rel="stylesheet" href="src/style/sharp-solid.css" />
+
+    <link rel="stylesheet" href="src/style/sharp-regular.css" />
+    <link rel="stylesheet" href="src/style/sharp-light.css" />
+    <link rel="stylesheet" href="src/style/sweetalert2.min.css" />
+    <script src="src/js/model/tableToExcel.js"></script>
+    <style>
+      * {
+        user-select: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <center>
+        <h2 id="title"></h2>
+      </center>
+      <div class="controlbox">
+        <button id="modal_addAllowance">
+          <i class="fa-solid fa-plus"></i> Allowance
+        </button>
+        <button id="modal_addDeduction">
+          <i class="fa-solid fa-plus"></i> Deduction
+        </button>
+        <button id="modal_addAdjustment">
+          <i class="fa-solid fa-plus"></i> Adjustment
+        </button>
+        <div class="checkbox-container">
+          <input class="chckboxdeduct" type="checkbox" name="" id="chckbox" />
+          <label for="chckbox" class="chckboxdeduct">Mandatory deductions</label>
+          <button id="exportBtn">Export</button>
+        </div>
+      </div>
+      <div class="table-container">
+        <table id="payroll-tables">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Rate Status</th>
+              <th>Rate</th>
+              <th>Hourly Rate</th>
+              <th>Working Days</th>
+              <th>Undertime</th>
+              <th>Leave</th>
+              <th>Basic Pay</th>
+              <th>RegularHoliday</th>
+              <th>RegularPay</th>
+              <th>SpecialHoliday</th>
+              <th>SpecialPay</th>
+              <th>Overtime</th>
+              <th>Overtime Hrs</th>
+              <th>Overtime Pay</th>
+              <th>Allowance</th>
+              <th>Salary Adj</th>
+              <th>Total Earnings</th>
+              <th>Gross Pay</th>
+              <th>PAG-IBIG</th>
+              <th>PHILHEALTH</th>
+              <th>SSS</th>
+              <th>TAX</th>
+              <th>Deduction</th>
+              <th>Total Deduct</th>
+              <th>NetPay</th>
+            </tr>
+          </thead>
+          <tbody class="payroll-table"></tbody>
+        </table>
+      </div>
+      <div class="footer-controls">
+        <button id="genPayroll">Generate Payroll</button>
+      </div>
+    </div>
+
+    <div class="additional_modal">
+      <div class="modal">
+        <div class="modal-content">
+          <div class="close"><i class="fa-solid fa-xmark"></i></div>
+          <div class="modal-title">
+            <center><span id="targetText">Target</span></center>
+          </div>
+          <div class="content">
+            <select id="dropdownEmployee"></select>
+            <div class="modal-controlbox">
+              <input
+                type="text"
+                name="name"
+                id="name"
+                placeholder="Name"
+                autocomplete="off"
+              />
+              <input
+                type="text"
+                name="amount"
+                id="amount"
+                placeholder="Amount"
+                autocomplete="off"
+              />
+              <button id="add-modal-item">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+            <div class="payroll-modal-tbl-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody class="additional-table">
+                  <!-- <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td></td>
+                  </tr> -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="src/js/sweetalert2.min.js"></script>
+    <script src="src/js/mainpayroll.js" type="module"></script>
+    <script>
+      $(() => {
+        $("#exportBtn").click(() => {
+          TableToExcel.convert(document.getElementById("payroll-tables"), {
+            name: "Payroll.xlsx",
+            sheet: {
+              name: `Payroll(${localStorage.getItem(
+                "startDate"
+              )}-${localStorage.getItem("endDate")}`,
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

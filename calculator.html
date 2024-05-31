@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkbox Example</title>
+    <style>
+      /* Customizing the checkbox appearance */
+      .checkbox-container {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .checkbox-container input[type="checkbox"] {
+        display: none;
+      }
+
+      .custom-checkbox {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background-color: #fff;
+        border: 2px solid #333;
+        border-radius: 4px;
+      }
+
+      .custom-checkbox.checked {
+        background-color: #333;
+      }
+
+      .custom-checkbox .checkmark {
+        display: none;
+      }
+
+      .custom-checkbox.checked .checkmark {
+        display: block;
+        width: 10px;
+        height: 10px;
+        background-color: #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <label class="checkbox-container">
+      <input type="checkbox" />
+      <span class="custom-checkbox"></span>
+    </label>
+    <label>Checkbox</label>
+    <input type="checkbox" name="" id="" /> Include Mandatories Deduction
+    <script>
+      // JavaScript to handle checkbox state change
+      document
+        .querySelectorAll('.checkbox-container input[type="checkbox"]')
+        .forEach(function (checkbox) {
+          checkbox.addEventListener("change", function () {
+            if (this.checked) {
+              this.nextElementSibling.classList.add("checked");
+            } else {
+              this.nextElementSibling.classList.remove("checked");
+            }
+          });
+        });
+    </script>
+  </body>
+</html>

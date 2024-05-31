@@ -1,0 +1,511 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+:root {
+  --text: #0b1318;
+  --text-white: #fff;
+  --background-white: #f7f9fb;
+  --background-black: #000;
+  --primary: #292929;
+  --secondary: #e4e4e4;
+  --accent: #eaaa00;
+}
+.manage_employee_modal .modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  display: none;
+}
+
+.manage_employee_modal .modal-content {
+  margin: 0 auto;
+  margin-top: 5%;
+  width: 600px;
+  /* height: 500px; */
+  border-radius: 10px;
+  background: var(--background-white);
+  padding: 30px;
+}
+.manage_employee_modal .modal-title {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+.manage_employee_modal .content {
+  display: flex;
+  width: 100%;
+  display: block;
+  gap: 15px;
+}
+
+.manage_employee_modal .content .input-container {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+.manage_employee_modal .content .input-container.input {
+  margin: 20px 0;
+}
+.manage_employee_modal .content .input {
+  flex: 1;
+}
+.manage_employee_modal .content .input label {
+  font-size: 13px;
+}
+.manage_employee_modal .content .input input,
+.manage_employee_modal .content .input select {
+  width: 100%;
+  padding: 5px;
+  height: 35px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.manage_employee_modal .content .input select,
+.manage_employee_modal .content .input select option {
+  font-size: 13px;
+}
+.manage_employee_modal .content .input input:focus,
+.manage_employee_modal .content .input select:focus {
+  outline-color: var(--accent);
+}
+
+.manage_employee_modal .content .controls button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  color: var(--text);
+  font-weight: 600;
+  border-radius: 5px;
+}
+.manage_employee_modal .content .controls button:focus {
+  outline-color: var(--secondary);
+}
+.manage_employee_modal .content .controls #addEmployeebtn {
+  background: var(--accent);
+}
+
+/* -------------------manage EMPLOYEE MODAL----------------- */
+.edit_employee_modal .modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  display: none;
+}
+
+.edit_employee_modal .modal-content {
+  margin: 0 auto;
+  margin-top: 5%;
+  width: 600px;
+  /* height: 500px; */
+  border-radius: 10px;
+  background: #fff;
+  padding: 16px;
+}
+.edit_employee_modal .modal-title {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+.edit_employee_modal .content {
+  display: flex;
+  width: 100%;
+  display: block;
+  gap: 15px;
+}
+
+.edit_employee_modal .content .input-container {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+.edit_employee_modal .content .input-container.input {
+  margin: 20px 0;
+}
+.edit_employee_modal .content .input {
+  flex: 1;
+}
+.edit_employee_modal .content .input label {
+  font-size: 13px;
+}
+.edit_employee_modal .content .input input,
+.edit_employee_modal .content .input select {
+  width: 100%;
+  padding: 5px;
+  height: 35px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.edit_employee_modal .content .input select,
+.edit_employee_modal .content .input select option {
+  font-size: 13px;
+}
+.edit_employee_modal .content .input input:focus,
+.edit_employee_modal .content .input select:focus {
+  outline-color: var(--accent);
+}
+
+.edit_employee_modal .content .controls button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  color: var(--text);
+  font-weight: 600;
+  border-radius: 5px;
+}
+.edit_employee_modal .content .controls button:focus {
+  outline-color: var(--sidebar-color);
+}
+.edit_employee_modal .content .controls #addEmployeebtn {
+  background: var(--accent);
+}
+
+/* ----------------SETTINGS MODAL------------------ */
+
+.settings_modal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+}
+
+.settings_modal .modal {
+  margin: 0 auto;
+  width: 70%;
+  height: 600px;
+  margin-top: 5%;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.settings_modal .title {
+  font-weight: 600;
+  border-bottom: 2px solid #ccc;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.settings_modal .title span {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.settings_modal .content {
+  display: flex;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.settings_modal .content .control-panel {
+  width: 15%;
+  padding: 10px;
+  border-right: 1px solid #ccc;
+  height: 56vh;
+}
+.settings_modal .content ul {
+  list-style: none;
+  color: #5a5451;
+  font-weight: bold;
+}
+.settings_modal .content ul li {
+  margin: 5px;
+  padding: 10px;
+}
+.settings_modal .content ul li:hover {
+  background-color: #eaaa00;
+  color: #fff;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.content .settings-container {
+  padding: 10px;
+}
+.content .settings-container .control-box {
+  display: flex;
+  padding: 10px;
+  gap: 10px;
+}
+.settings-container .control-box input:nth-of-type(2) {
+  width: 60px;
+}
+.settings-container .control-box input {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.settings-container .control-box input:focus {
+  outline-color: #eaaa00;
+}
+.settings-container .control-box button {
+  width: 30px;
+  height: 30px;
+  border-radius: 3px;
+  background-color: #eaaa00;
+  border: none;
+  font-weight: bolder;
+}
+.settings-container .settings-table-container {
+  max-height: 400px;
+  overflow-y: scroll;
+}
+.settings-container table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.9em;
+  overflow-y: scroll;
+  border-radius: 5px 5px 0 0;
+}
+.settings-container table thead {
+  position: sticky;
+  top: 0;
+}
+.settings-container table thead tr {
+  background: var(--secondary);
+  color: var(--text-color2);
+  text-align: left;
+}
+.settings-containertable th,
+.settings-container table td {
+  padding: 12px 15px;
+}
+.settings-container table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+.settings-container table tbody tr:nth-of-type(even) {
+  background: #fdfdfd;
+}
+.settings-container table tbody tr:last-child {
+  border-bottom: 2px solid var(--secondary);
+}
+.settings-container thead th:nth-of-type(1) {
+  width: 10px;
+}
+.settings-container thead th:nth-of-type(2) {
+  width: 190px;
+}
+.settings-container .contribution .inputs {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+.settings-container .contribution .inputs:last-of-type {
+  display: flex;
+  justify-content: end;
+}
+.settings-container .contribution button {
+  padding: 13px;
+  width: 70px;
+  border-radius: 8px;
+  color: var(--primary);
+  font-weight: bold;
+  border: none;
+  background-color: #eaaa00;
+}
+.settings-container .contribution input {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.settings-container .contribution input:focus {
+  outline-color: #eaaa00;
+}
+.settings-container .type {
+  display: block;
+}
+.settings-container .position {
+  display: none;
+}
+.settings-container .rate {
+  display: none;
+}
+.settings-container .schedule {
+  display: none;
+}
+.settings-container .contribution {
+  display: none;
+}
+.settings-container .leavetypes {
+  display: none;
+}
+.remove-items-btn {
+  color: red;
+}
+
+.request-history-modal .modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  display: none;
+}
+
+.request-history-modal .modal-content {
+  margin: 0 auto;
+  margin-top: 5%;
+  width: 800px;
+  height: 650px;
+  border-radius: 10px;
+  background: var(--background-white);
+  padding: 20px;
+}
+
+.request-history-modal .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.request-history-modal .content {
+  margin-top: 15px;
+  width: 100%;
+}
+
+.request-history-modal .table-container table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.9em;
+  overflow-y: scroll;
+  border-radius: 5px 5px 0 0;
+  margin-bottom: 20px;
+}
+.request-history-modal .table-container table thead {
+  position: sticky;
+  top: 0;
+}
+.request-history-modal .table-container table thead tr {
+  background: var(--secondary);
+  color: var(--text-color2);
+  text-align: left;
+}
+
+.request-history-modal .table-container table th,
+.request-history-modal .table-container table td {
+  padding: 10px 15px;
+}
+.request-history-modal .table-container table tbody tr {
+  border-bottom: 1px solid #dddddd;
+  font-size: 12px;
+}
+.request-history-modal .table-container table tbody tr:nth-of-type(even) {
+  background: #fdfdfd;
+}
+.request-history-modal .table-container table tbody tr:last-child {
+  border-bottom: 2px solid var(--secondary);
+}
+
+.attendance-modal .modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  display: none;
+}
+
+.attendance-modal .modal-content {
+  margin: 0 auto;
+  margin-top: 5%;
+  width: 400px;
+  /* height: 500px; */
+  border-radius: 10px;
+  background: var(--background-white);
+  padding: 20px;
+}
+
+.attendance-modal .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.attendance-modal .content {
+  margin-top: 15px;
+  width: 100%;
+}
+
+.attendance-modal #editAttendanceForm {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+.attendance-modal .inputs {
+  margin-bottom: 15px;
+}
+.attendance-modal .inputs label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+.attendance-modal .inputs input[type="time"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
+  color: #333;
+}
+.attendance-modal .inputs input[type="time"]:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.attendance-modal button {
+  width: calc(50% - 10px);
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.attendance-modal button:first-of-type {
+  background-color: #6c757d;
+  color: #fff;
+  margin-right: 10px;
+}
+.attendance-modal button:first-of-type:hover {
+  background-color: #5a6268;
+}
+.attendance-modal button:last-of-type {
+  background-color: #007bff;
+  color: #fff;
+}
+.attendance-modal button:last-of-type:hover {
+  background-color: #0056b3;
+}
+
+@media only screen and (max-width: 1280px) {
+  .settings_modal .modal {
+    width: 90%;
+  }
+}
